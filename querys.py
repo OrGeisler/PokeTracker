@@ -60,7 +60,7 @@ def find_owners(poke_name):
     except:
         print("Error")
 
-print(find_owners('gengar'))
+# print(find_owners('gengar'))
 
 ## query 4
 
@@ -77,5 +77,25 @@ def find_roster(trainer_name):
     except:
         print("Error")
 
-print(find_roster('Loga'))
+# print(find_roster('Loga'))
 
+## query 5
+
+def most_owned():
+    try:
+        with connection.cursor() as cursor:
+            query =  f"SELECT pokemon.name   \
+                       FROM pokemon JOIN owned_by ON pokemon.id = owned_by.pokemon_id \
+                       GROUP BY pokemon.name \
+                       HAVING COUNT(pokemon.name) = (SELECT MAX(J.num) max_num   \
+                                                     FROM ( SELECT pokemon.name name , COUNT(pokemon.name) num  \
+                                                            FROM pokemon JOIN owned_by ON pokemon.id = owned_by.pokemon_id \
+                                                            GROUP BY pokemon.name) J)"
+
+            cursor.execute(query)
+            result = cursor.fetchall()
+            return result
+    except:
+        print("Error")
+
+# print(most_owned())
