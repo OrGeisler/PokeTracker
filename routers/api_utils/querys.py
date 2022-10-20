@@ -48,3 +48,8 @@ sql_get_pokemon_by_trainer_and_type = """
                                         WHERE o.trainer_name = %s
                                         AND t.type_name = %s
                                         """
+sql_get_trainers_of_pokemon = """
+                                SELECT t.name , t.town
+                                FROM trainer t JOIN owned_by o ON t.name = o.trainer_name
+                                WHERE o.pokemon_id = %s
+                                """

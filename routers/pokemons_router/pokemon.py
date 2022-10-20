@@ -1,6 +1,4 @@
-from typing import List
 from fastapi import APIRouter
-import requests
 from . import pokemon_utils
 
 # sys.path.append('./api_utils')

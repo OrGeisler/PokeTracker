@@ -1,13 +1,14 @@
 from fastapi import FastAPI,APIRouter,HTTPException
 import uvicorn
-import requests
 from routers.pokemons_router.pokemon import pokemonsRoute
+from routers.trainers_router.trainers import trainersRoute
 
 
 
 app = FastAPI()
 
 app.include_router(pokemonsRoute)
+app.include_router(trainersRoute)
 
 
 @app.get('/sanity')
