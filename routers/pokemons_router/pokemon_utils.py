@@ -1,6 +1,9 @@
 from fastapi import HTTPException
 import requests
+from ..api_utils import querys 
+from ..api_utils.db_proxy import db_proxy 
 
+db = db_proxy()
 
 
 
@@ -26,3 +29,10 @@ def add_types_to_pokemon(pokemon,pokemon_types_from_db):
             pokemon['type'] = [f'{type_name}']
     return pokemon
 
+def add_types_to_pokemon_list(pokemons_list):
+    pokemon_list_with_types = []
+    for pokemon in pokemons_list:
+        pokemon_types_from_db = db.execute_select_all_query(querys.sql_get_pokemon_type_by_id,pokemon['id'])
+        pokemon_with_types = add_types_to_pokemon(pokemon,pokemon_types_from_db)
+        pokemon_list_with_types.append(pokemon_with_types)
+    return pokemon_list_with_types

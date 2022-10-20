@@ -23,3 +23,26 @@ def pokemonByName(pokemon_name):
     pokemon_types_from_db = db.execute_select_all_query(querys.sql_get_pokemon_type_by_id,pokemon_id)
     pokemon_with_types = pokemon_utils.add_types_to_pokemon(pokemon,pokemon_types_from_db)
     return pokemon_with_types
+
+
+@pokemonsRoute.get('/pokemons')
+def pokemonByField(type = None,trainer =None):
+    if type and trainer:
+        pokemons_list = db.execute_select_all_query(querys.sql_get_pokemon_by_trainer_and_type,(trainer,type))
+        pokemon_list_with_types = pokemon_utils.add_types_to_pokemon_list(pokemons_list)
+        return pokemon_list_with_types
+
+    elif (not type) and (trainer):
+        pokemons_list = db.execute_select_all_query(querys.sql_get_pokemon_by_trainer,trainer)
+        pokemon_list_with_types = pokemon_utils.add_types_to_pokemon_list(pokemons_list)
+        return pokemon_list_with_types
+
+    elif type and (not trainer):
+        pokemons_list = db.execute_select_all_query(querys.sql_get_pokemon_by_type,type)
+        pokemon_list_with_types = pokemon_utils.add_types_to_pokemon_list(pokemons_list)
+        return pokemon_list_with_types
+
+    else:
+        pokemons_list = db.execute_select_all_query(querys.sql_get_all_pokemons)
+        pokemon_list_with_types = pokemon_utils.add_types_to_pokemon_list(pokemons_list)
+        return pokemon_list_with_types

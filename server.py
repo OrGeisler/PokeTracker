@@ -20,13 +20,6 @@ if __name__ == "__main__":
     uvicorn.run("server:app",host="localhost", port=8000,reload=True)
 
 
-
-
-
-# @app.get('/pokemons')
-# def pokemonBytypeAndTrainer(type = None,trainer =None):
-#     pass 
-
 # @app.get('/trainers')
 # def trainersOfpokemon(pokemon):
 #     pass 
