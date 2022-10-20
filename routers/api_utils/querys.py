@@ -53,3 +53,18 @@ sql_get_trainers_of_pokemon = """
                                 FROM trainer t JOIN owned_by o ON t.name = o.trainer_name
                                 WHERE o.pokemon_id = %s
                                 """
+sql_insert_trainer = """
+                        INSERT IGNORE into trainer (name,town) 
+                        values (%s,%s)
+                        """
+sql_insert_pokemon_to_trainer = """
+                                INSERT IGNORE into owned_by (trainer_name,pokemon_id) 
+                                values (%s,%s)
+                                """
+
+sql_delete_pokemon_of_trainer = """
+                                DELETE FROM owned_by 
+                                WHERE trainer_name = %s
+                                AND pokemon_id = %s
+                                """
+

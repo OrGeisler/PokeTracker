@@ -44,3 +44,15 @@ def pokemonByField(type = None,trainer =None):
         pokemons_list = db.execute_select_all_query(querys.sql_get_all_pokemons)
         pokemon_list_with_types = pokemon_utils.add_types_to_pokemon_list(pokemons_list)
         return pokemon_list_with_types
+
+
+@pokemonsRoute.post('/pokemons/{pokemon_name}/trainers/{trainer_name}')
+def addPokemonToTrainer(pokemon_name,trainer_name):
+    pokemon_id = db.execute_select_one_query(querys.sql_get_pokemon_id,pokemon_name)['id']
+    db.execute_insert_query(querys.sql_insert_pokemon_to_trainer,(trainer_name,pokemon_id))
+
+@pokemonsRoute.delete('/pokemons/{pokemon_name}/trainers/{trainer_name}')
+def addPokemonToTrainer(pokemon_name,trainer_name):
+    pokemon_id = db.execute_select_one_query(querys.sql_get_pokemon_id,pokemon_name)['id']
+    db.execute_insert_query(querys.sql_delete_pokemon_of_trainer,(trainer_name,pokemon_id))
+
