@@ -36,3 +36,16 @@ def add_types_to_pokemon_list(pokemons_list):
         pokemon_with_types = add_types_to_pokemon(pokemon,pokemon_types_from_db)
         pokemon_list_with_types.append(pokemon_with_types)
     return pokemon_list_with_types
+
+def add_trainers_to_pokemon(pokemon):
+    pokemon_id = db.execute_select_one_query(querys.sql_get_pokemon_id,pokemon['name'])['id']
+    trainers = db.execute_select_all_query(querys.sql_get_trainers_of_pokemon,pokemon_id)
+    pokemon['ownedBy'] = trainers
+    return pokemon
+
+def add_trainers_to_pokemon_list(pokemons_list):
+    pokemon_list_with_trainers = []
+    for pokemon in pokemons_list:
+        pokemon_with_trainers = add_trainers_to_pokemon(pokemon)
+        pokemon_list_with_trainers.append(pokemon_with_trainers)
+    return pokemon_list_with_trainers
