@@ -2,7 +2,7 @@
 
 ## Overview
 
-PokeTracker is an back - end project that combains: Server (FastApi), SQL database (MySql), External API.
+PokeTracker is an back - end project that combains: Server (FastApi), SQL database (MySql) and External API.
 
 PokeTracker allows the user to receive information and perform actions on pokemons.
 
